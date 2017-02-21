@@ -15,7 +15,7 @@
       "devDependencies": true,
       "optionalDependencies": true
     }],
-    "react/jsx-filename-extension": 0
+    "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }]
   },
   "ecmaFeatures": {
     "arrowFunctions": true,
