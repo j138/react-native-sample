@@ -7,7 +7,21 @@
 import React, { Component } from 'react';
 import { AppRegistry } from 'react-native';
 import { Actions, Scene, Router } from 'react-native-router-flux';
+import { COLOR, ThemeProvider, Toolbar } from 'react-native-material-ui';
+
 import Home from './components/Home';
+
+const uiTheme = {
+  palette: {
+    primaryColor: COLOR.green500,
+  },
+  toolbar: {
+    container: {
+      height: 50,
+    },
+  },
+};
+
 
 const scenes = Actions.create(
   <Scene key="root">
@@ -18,7 +32,11 @@ const scenes = Actions.create(
 
 export default class AwesomeProject extends Component {
   render() {
-    return <Router scenes={scenes} />;
+    return (
+      <ThemeProvider uiTheme={uiTheme}>
+        <Router scenes={scenes} />
+      </ThemeProvider>
+    );
   }
 }
 

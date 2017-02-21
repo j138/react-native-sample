@@ -3,10 +3,10 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  TouchableOpacity,
-  TouchableHighlight,
   View,
 } from 'react-native';
+
+import { Toolbar, BottomNavigation, ActionButton, Button } from 'react-native-material-ui';
 
 import { Actions } from 'react-native-router-flux';
 
@@ -35,19 +35,6 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     backgroundColor: 'white',
   },
-  button: {
-    color: 'red',
-    height: 40,
-    padding: 10,
-    textAlign: 'center',
-    borderColor: 'red',
-    borderWidth: 2,
-    margin: 10,
-  },
-  linkText: {
-    fontSize: 20,
-    color: 'rgb(95, 177, 237)',
-  },
 });
 
 class Home extends Component {
@@ -64,6 +51,15 @@ class Home extends Component {
   render() {
     const { title } = this.props;
 
+        // <Toolbar
+        //   leftElement="menu"
+        //   centerElement="Searchable"
+        //   searchable={{
+        //     autoFocus: true,
+        //     placeholder: 'Search',
+        //   }}
+        // />
+
     return (
       <View style={styles.container}>
         <Text style={styles.title}>{title}</Text>
@@ -78,20 +74,37 @@ class Home extends Component {
           value={this.state.text}
         />
 
-        <TouchableHighlight onPress={this.clearText}>
-          <Text style={styles.button}>
-            Clear
-          </Text>
-        </TouchableHighlight>
+        <Button raised primary text="Home" onPress={Actions.home} />
+        <Button raised accent text="Login" onPress={Actions.login} />
 
-        <TouchableOpacity onPress={Actions.home}>
-          <Text style={styles.linkText}>to Home</Text>
-        </TouchableOpacity>
+        <BottomNavigation active={this.state.active} hidden={false} >
+          <BottomNavigation.Action
+            key="today"
+            icon="today"
+            label="Today"
+            onPress={() => this.setState({ active: 'today' })}
+          />
+          <BottomNavigation.Action
+            key="people"
+            icon="people"
+            label="People"
+            onPress={() => this.setState({ active: 'people' })}
+          />
+          <BottomNavigation.Action
+            key="bookmark-border"
+            icon="bookmark-border"
+            label="Bookmark"
+            onPress={() => this.setState({ active: 'bookmark-border' })}
+          />
+          <BottomNavigation.Action
+            key="settings"
+            icon="settings"
+            label="Settings"
+            onPress={() => this.setState({ active: 'settings' })}
+          />
+        </BottomNavigation>
 
-        <TouchableOpacity onPress={Actions.login}>
-          <Text style={styles.linkText}>to Login</Text>
-        </TouchableOpacity>
-
+        <ActionButton icon="done" onPress={this.clearText} />
       </View>
     );
   }
