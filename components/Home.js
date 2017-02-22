@@ -1,21 +1,12 @@
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from 'react-native';
-
-import { Toolbar, BottomNavigation, ActionButton, Button } from 'react-native-material-ui';
-
+import { StyleSheet, StatusBar, View, Text, TextInput } from 'react-native';
+import { BottomNavigation, ActionButton } from 'react-native-material-ui';
 import { Actions } from 'react-native-router-flux';
+import Container from '../container';
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+  top: {
+    marginBottom: 120,
   },
   title: {
     textAlign: 'center',
@@ -40,7 +31,12 @@ const styles = StyleSheet.create({
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = { text: '' };
+
+    this.state = {
+      text: props.title,
+      active: props.name,
+    };
+
     this.clearText = this.clearText.bind(this);
   }
 
@@ -51,67 +47,44 @@ class Home extends Component {
   render() {
     const { title } = this.props;
 
-        // <Toolbar
-        //   leftElement="menu"
-        //   centerElement="Searchable"
-        //   searchable={{
-        //     autoFocus: true,
-        //     placeholder: 'Search',
-        //   }}
-        // />
-
     return (
-      <View style={styles.container}>
-        <Text style={styles.title}>{title}</Text>
+      <Container>
+        <StatusBar backgroundColor="rgba(0, 0, 0, 0.2)" translucent />
+        <View style={styles.top}>
+          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.instructions}>plz input</Text>
 
-        <Text style={styles.instructions}>
-        plz input text
-        </Text>
-
-        <TextInput
-          style={styles.textform}
-          onChangeText={text => this.setState({ text })}
-          value={this.state.text}
-        />
-
-        <Button raised primary text="Home" onPress={Actions.home} />
-        <Button raised accent text="Login" onPress={Actions.login} />
+          <TextInput
+            style={styles.textform}
+            onChangeText={text => this.setState({ text })}
+            value={this.state.text}
+          />
+        </View>
 
         <BottomNavigation active={this.state.active} hidden={false} >
           <BottomNavigation.Action
-            key="today"
-            icon="today"
-            label="Today"
-            onPress={() => this.setState({ active: 'today' })}
-          />
-          <BottomNavigation.Action
-            key="people"
-            icon="people"
-            label="People"
-            onPress={() => this.setState({ active: 'people' })}
-          />
-          <BottomNavigation.Action
-            key="bookmark-border"
-            icon="bookmark-border"
-            label="Bookmark"
-            onPress={() => this.setState({ active: 'bookmark-border' })}
+            key="home"
+            icon="home"
+            label="Home"
+            onPress={() => Actions.home()}
           />
           <BottomNavigation.Action
             key="settings"
             icon="settings"
             label="Settings"
-            onPress={() => this.setState({ active: 'settings' })}
+            onPress={() => Actions.settings()}
           />
         </BottomNavigation>
 
         <ActionButton icon="done" onPress={this.clearText} />
-      </View>
+      </Container>
     );
   }
 }
 
 Home.propTypes = {
   title: React.PropTypes.string.isRequired,
+  name: React.PropTypes.string.isRequired,
 };
 
 export default Home;

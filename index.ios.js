@@ -4,12 +4,11 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+import React from 'react';
 import { AppRegistry } from 'react-native';
-import { Actions, Scene, Router } from 'react-native-router-flux';
-import { COLOR, ThemeProvider, Toolbar } from 'react-native-material-ui';
-
-import Home from './components/Home';
+import { Router } from 'react-native-router-flux';
+import { COLOR, ThemeProvider } from 'react-native-material-ui';
+import scenes from './components/Scenes';
 
 const uiTheme = {
   palette: {
@@ -22,22 +21,10 @@ const uiTheme = {
   },
 };
 
+const app = () => (
+  <ThemeProvider uiTheme={uiTheme}>
+    <Router scenes={scenes} />
+  </ThemeProvider>
+);
 
-const scenes = Actions.create(
-  <Scene key="root">
-    <Scene key="login" component={Home} title="Login" />
-    <Scene key="home" component={Home} title="Home" />
-  </Scene>,
-    );
-
-export default class AwesomeProject extends Component {
-  render() {
-    return (
-      <ThemeProvider uiTheme={uiTheme}>
-        <Router scenes={scenes} />
-      </ThemeProvider>
-    );
-  }
-}
-
-AppRegistry.registerComponent('AwesomeProject', () => AwesomeProject);
+AppRegistry.registerComponent('AwesomeProject', () => app);
